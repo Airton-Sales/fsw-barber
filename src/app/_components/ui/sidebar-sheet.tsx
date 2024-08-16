@@ -6,20 +6,13 @@ import { SheetClose, SheetContent, SheetHeader, SheetTitle } from "./sheet"
 import { quickSearchOptions } from "@/app/_constants/search"
 import Link from "next/link"
 import Image from "next/image"
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "./dialog"
-import { signIn, signOut, useSession } from "next-auth/react"
+import { Dialog, DialogContent, DialogTrigger } from "./dialog"
+import { signOut, useSession } from "next-auth/react"
 import { Avatar, AvatarImage } from "./avatar"
+import SignInDialog from "../sign-in-dialog"
 
 const SidebarSheet = () => {
   const { data } = useSession()
-  const handleLoginWithGoogleClick = () => signIn("google")
   const handleLogoutClick = () => signOut()
 
   return (
@@ -45,31 +38,12 @@ const SidebarSheet = () => {
             <h2 className="font-bold">Olá, faça seu login!</h2>
             <Dialog>
               <DialogTrigger asChild>
-                <Button>
-                  <LogInIcon size="icon" />
+                <Button size="icon">
+                  <LogInIcon />
                 </Button>
               </DialogTrigger>
               <DialogContent className="w-[90%]">
-                <DialogHeader>
-                  <DialogTitle>Faça seu login na plataforma</DialogTitle>
-                  <DialogDescription>
-                    Conecte-se usando sua conta do Google
-                  </DialogDescription>
-                </DialogHeader>
-
-                <Button
-                  className="gap-1 font-bold"
-                  variant={"outline"}
-                  onClick={handleLoginWithGoogleClick}
-                >
-                  <Image
-                    alt="Fazer login com o Google"
-                    src="/Google.svg"
-                    width={20}
-                    height={20}
-                  />
-                  Google
-                </Button>
+                <SignInDialog />
               </DialogContent>
             </Dialog>
           </>
